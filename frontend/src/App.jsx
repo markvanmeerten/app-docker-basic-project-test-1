@@ -7,7 +7,7 @@ function App() {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/hello`)
+    fetch(`api/hello`)
       .then(res => res.json())
       .then(data => console.log(data.message));
   }, []);
