@@ -4,6 +4,7 @@ services:
     env: docker
     repo: https://github.com/markvanmeerten/app-docker-basic-project-test-1
     dockerfilePath: backend/Dockerfile
+    rootDir: backend
     buildCommand: ""
     envVars:
       - key: APP_ENV

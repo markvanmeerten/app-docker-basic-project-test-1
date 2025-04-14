@@ -14,6 +14,10 @@ WORKDIR /var/www
 # Eerst alleen composer-bestanden kopiëren
 COPY composer.json composer.lock ./
 
+# Voor debug: laat de inhoud zien vóór composer install
+RUN ls -la /var/www
+RUN cat /var/www/composer.json || echo "composer.json NIET gevonden"
+
 # Pas daarna dependencies installeren
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
