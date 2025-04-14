@@ -8,21 +8,17 @@ RUN apt-get update && apt-get install -y \
 # Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Werkmap instellen
+# App directory
 WORKDIR /var/www
 
-# Eerst alleen composer-bestanden kopiëren
-COPY composer.json composer.lock ./
-
-# Voor debug: laat de inhoud zien vóór composer install
-RUN ls -la /var/www
-RUN cat /var/www/composer.json || echo "composer.json NIET gevonden"
-
-# Pas daarna dependencies installeren
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
-
-# Nu de rest van de Laravel-app kopiëren
+# 👇 Alles in één keer kopiëren vóór composer install
 COPY . .
 
-# Laravel starten
+# 🔐 Laravel dependencies installeren
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# 📦 Cache config (optioneel)
+# RUN php artisan config:cache
+
+# Start Laravel
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
