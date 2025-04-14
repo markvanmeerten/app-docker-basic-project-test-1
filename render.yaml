@@ -3,8 +3,8 @@ services:
     name: laravel-backend
     env: docker
     repo: https://github.com/markvanmeerten/app-docker-basic-project-test-1
-    dockerfilePath: backend/Dockerfile
     rootDir: backend
+    dockerfilePath: Dockerfile
     buildCommand: ""
     envVars:
       - key: APP_ENV
