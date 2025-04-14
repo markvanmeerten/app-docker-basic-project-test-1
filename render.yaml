@@ -1,6 +1,6 @@
 services:
   - type: web
-    plan: free
+    plan: standard
     name: laravel-backend
     env: docker
     repo: https://github.com/markvanmeerten/app-docker-basic-project-test-1
@@ -35,7 +35,7 @@ services:
           property: password
 
   - type: web
-    plan: free
+    plan: standard
     name: react-frontend
     env: static
     repo: https://github.com/markvanmeerten/app-docker-basic-project-test-1
