@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -7,11 +7,29 @@ function App() {
   const [count, setCount] = useState(0);
   const apiUrl = import.meta.env.VITE_API_URL;
 
-  // useEffect(() => {
-  //   // fetch(`${apiUrl}/hello`)
-  //   //   .then(res => res.json())
-  //   //   .then(data => console.log(data.message));
-  // }, []);
+  useEffect(() => {
+    console.log("FETCHING");
+
+    fetch(`${apiUrl}/increment/1`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Teller:", data.value);
+
+        setCount(data.value);
+      });
+
+    // fetch(`${apiUrl}/increment/1`, {
+    //   method: "GET",
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log("Teller:", data.value);
+
+    //     setCount(data.value);
+    //   });
+  }, []);
 
   const handleClickCount = () => {
     setCount((count) => count + 1);
@@ -21,7 +39,11 @@ function App() {
       method: "POST",
     })
       .then((res) => res.json())
-      .then((data) => console.log("Teller:", data.value));
+      .then((data) => {
+        console.log("Teller:", data.value);
+
+        setCount(data.value);
+      });
   };
 
   return (

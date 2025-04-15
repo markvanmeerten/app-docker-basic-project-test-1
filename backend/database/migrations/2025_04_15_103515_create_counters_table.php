@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('counters', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('value')->default(0);
             $table->timestamps();
         });
     }

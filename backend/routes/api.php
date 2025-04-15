@@ -3,7 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/api/increment/{id}', function (Request $request) {
+use App\Models\Counter;
+
+Route::post('/increment/{id}', function ($id) {
     $counter = Counter::where('id', $id)->first();
 
     if (!$counter) {
@@ -13,8 +15,10 @@ Route::post('/api/increment/{id}', function (Request $request) {
     }
 
     return response()->json(['id' => $counter->id, 'value' => $counter->value]);
-})->middleware('auth:sanctum');
+});
 
-Route::get('/api/increment/{id}', function (Request $request) {
-    return response()->json(['value' => '-1']);
-})->middleware('auth:sanctum');
+Route::get('/increment/{id}', function ($id) {
+    $counter = Counter::where('id', $id)->first();
+
+    return response()->json(['value' => $counter->value]);
+});
