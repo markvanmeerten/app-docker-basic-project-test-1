@@ -15,13 +15,14 @@ Route::get('/about', function () {
 });
 
 Route::get('/api/increment', function (Request $request) {
-    $counter = Counter::first();
+    return "The about section..";
+    // $counter = Counter::first();
 
-    if (!$counter) {
-        $counter = Counter::create(['value' => 1]);
-    } else {
-        $counter->increment('value');
-    }
+    // if (!$counter) {
+    //     $counter = Counter::create(['value' => 1]);
+    // } else {
+    //     $counter->increment('value');
+    // }
 
-    return response()->json(['value' => $counter->value]);
+    // return response()->json(['value' => $counter->value]);
 });

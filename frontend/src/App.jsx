@@ -18,12 +18,12 @@ function App() {
     console.log("new count: " + count);
 
     fetch(`${apiUrl}/increment`, {
-      method: 'POST'
+      method: 'GET'
     })
       .then(res => res.json())
       .then(data => console.log('Teller:', data.value));
   }
-
+                                                                                                                                                                                                                                                                      v
   return (
     <>
       <div>
