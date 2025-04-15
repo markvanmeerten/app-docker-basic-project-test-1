@@ -17,8 +17,8 @@ function App() {
     setCount((count) => count + 1);
     console.log("new count: " + count);
 
-    fetch(`${apiUrl}/increment`, {
-      method: "GET",
+    fetch(`${apiUrl}/increment/1`, {
+      method: "POST",
     })
       .then((res) => res.json())
       .then((data) => console.log("Teller:", data.value));
@@ -39,7 +39,7 @@ function App() {
       <div className="card">
         <button onClick={handleClickCount}>count is {count}</button>
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+          Edit <code>src/App.jsx</code> and save to test HMR!
         </p>
       </div>
       <p className="read-the-docs">
