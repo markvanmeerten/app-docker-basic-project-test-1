@@ -12,8 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Handle CORS
-        $middleware->append(\Illuminate\Http\Middleware\HandleCors::class);
+        if ($_ENV['APP_ENV'] === 'local') {
+            // $middleware->append(\Illuminate\Http\Middleware\HandleCors::class);
+        }
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

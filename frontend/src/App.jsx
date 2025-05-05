@@ -5,6 +5,7 @@ import "./App.css";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(false);
   const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -15,18 +16,21 @@ function App() {
       .then((data) => {
         setCount(data.value);
       });
-  }, []);
+  }, [apiUrl]);
 
-  const handleClickCount = () => {
-    setCount((count) => count + 1);
-
-    fetch(`${apiUrl}/increment/1`, {
-      method: "POST",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setCount(data.value);
+  const handleClickCount = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${apiUrl}/increment/1`, {
+        method: "POST",
       });
+      const data = await res.json();
+      setCount(data.value);
+    } catch (error) {
+      console.error("Fout bij ophalen:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -42,7 +46,9 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={handleClickCount}>count is {count}</button>
+        <button onClick={handleClickCount} disabled={loading}>
+          {loading ? "⏳ Laden..." : `count is ${count}`}
+        </button>
       </div>
     </>
   );
