@@ -6,34 +6,43 @@ services:
     rootDir: backend
     dockerfilePath: Dockerfile
     buildCommand: ""
-    startCommand: "./render-build-script.sh"
+    startCommand: ""
     envVars:
       - key: APP_ENV
         value: production
       - key: APP_KEY
         generateValue: true
       - key: DB_CONNECTION
-        value: pgsql
+        value: mysql
       - key: DB_HOST
-        fromDatabase:
-          name: laravel-db
+        fromService:
+          name: mysql-db
           property: host
       - key: DB_PORT
-        fromDatabase:
-          name: laravel-db
+        fromService:
+          name: mysql-db
           property: port
       - key: DB_DATABASE
-        fromDatabase:
-          name: laravel-db
-          property: database
+        value: laravel
       - key: DB_USERNAME
-        fromDatabase:
-          name: laravel-db
-          property: user
+        value: laravel
       - key: DB_PASSWORD
-        fromDatabase:
-          name: laravel-db
-          property: password
+        value: secret
+
+  - type: private
+    name: mysql-db
+    env: docker
+    image: mysql:8
+    plan: free
+    envVars:
+      - key: MYSQL_DATABASE
+        value: laravel
+      - key: MYSQL_USER
+        value: laravel
+      - key: MYSQL_PASSWORD
+        value: secret
+      - key: MYSQL_ROOT_PASSWORD
+        value: root
 
   - type: web
     name: react-frontend
@@ -42,8 +51,3 @@ services:
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     rootDir: frontend
-
-databases:
-  - name: laravel-db
-    postgresMajorVersion: 15
-    plan: free
