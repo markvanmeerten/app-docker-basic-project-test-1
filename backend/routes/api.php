@@ -17,7 +17,7 @@ Route::post('/increment/{id}', function ($id) {
     return response()->json(['id' => $counter->id, 'value' => $counter->value]);
 });
 
-Route::get('/increment/{id}', function ($id) {
+Route::get('/{id}', function ($id) {
     $counter = Counter::where('id', $id)->first();
 
     return response()->json(['value' => $counter->value]);

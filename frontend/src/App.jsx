@@ -5,27 +5,42 @@ import "./App.css";
 
 function App() {
   const [count, setCount] = useState(0);
+  // eslint-disable-next-line no-unused-vars
+  const [id, setId] = useState(1);
+  
   const [loading, setLoading] = useState(false);
   const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    fetch(`${apiUrl}/increment/1`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setCount(data.value);
-      });
-  }, [apiUrl]);
+    setLoading(true);
+
+    try {
+      fetch(`${apiUrl}/${id}`, {
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setCount(data.value);
+        });
+    } catch (error) {
+      console.error("Fout bij ophalen:", error);
+    } finally {
+      setLoading(false);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const handleClickCount = async () => {
     setLoading(true);
+
     try {
-      const res = await fetch(`${apiUrl}/increment/1`, {
+      fetch(`${apiUrl}/increment/${id}`, {
         method: "POST",
-      });
-      const data = await res.json();
-      setCount(data.value);
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setCount(data.value);
+        });
     } catch (error) {
       console.error("Fout bij ophalen:", error);
     } finally {

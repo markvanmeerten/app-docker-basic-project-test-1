@@ -1,9 +1,54 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
+      manifest: {
+        name: 'My Counter',
+        short_name: 'Counter',
+        description: 'Increase by one..',
+        theme_color: '#ffffff',
+        background_color: '#ffffff',
+        display: 'standalone',
+        start_url: '/',
+        offline_enabled: true,
+        icons: [
+          {
+            src: 'logo-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          },
+          {
+            src: 'logo-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any'
+          }
+        ],
+        "screenshots": [
+          {
+            "src": "logo-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "Application"
+          },
+          {
+            "src": "logo-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "label": "Application"
+          },
+        ]
+      }
+    })
+  ],
   server: {
     proxy: {
       '/api': 'http://localhost:8000' // Fake CORS
