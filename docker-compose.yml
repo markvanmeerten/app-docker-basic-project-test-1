@@ -1,12 +1,16 @@
 services:
-  app:
+  backend:
     build:
       context: ./backend
-    container_name: laravel-app
+    container_name: laravel-backend
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/var/www
+      - type: bind
+        source: ./backend
+        target: /var/www
+      - type: volume
+        target: /var/www/vendor
     depends_on:
       - db
     environment:
