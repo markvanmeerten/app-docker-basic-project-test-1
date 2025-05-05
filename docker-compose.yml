@@ -14,26 +14,27 @@ services:
     depends_on:
       - db
     environment:
-      DB_CONNECTION: pgsql
+      DB_CONNECTION: mysql
       DB_HOST: db
-      DB_PORT: 5432
+      DB_PORT: 3306
       DB_DATABASE: laravel
       DB_USERNAME: laravel
       DB_PASSWORD: secret
     working_dir: /var/www
 
   db:
-    image: postgres:15
-    container_name: postgres-db
+    image: mysql:8
+    container_name: mysql-db
     restart: always
     ports:
-      - "5432:5432"
+      - "3306:3306"
     environment:
-      POSTGRES_DB: laravel
-      POSTGRES_USER: laravel
-      POSTGRES_PASSWORD: secret
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: root
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - mysqldata:/var/lib/mysql
 
   frontend:
     build:
@@ -49,4 +50,4 @@ services:
     container_name: react-frontend
 
 volumes:
-  pgdata:
+  mysqldata:
