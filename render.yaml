@@ -6,7 +6,7 @@ services:
     rootDir: backend
     dockerfilePath: Dockerfile
     buildCommand: ""
-    startCommand: "./render-build-script.sh"
+    startCommand: ""
     envVars:
       - key: APP_ENV
         value: production
