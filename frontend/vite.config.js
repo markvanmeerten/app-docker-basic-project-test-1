@@ -33,14 +33,7 @@ export default defineConfig({
         ],
         "screenshots": [
           {
-            "src": "logo-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "form_factor": "wide",
-            "label": "Application"
-          },
-          {
-            "src": "logo-512x512.png",
+            "src": "screenshot.png",
             "sizes": "512x512",
             "type": "image/png",
             "label": "Application"
